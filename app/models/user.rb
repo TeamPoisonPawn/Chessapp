@@ -4,7 +4,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_games
-  has_many :games, through: :user_games
-  has_many :pieces, through: :games
+  belongs_to :game
+  has_many :pieces
+
+  def all_games
+    Game.where('white_player_id = ? OR black_player_id = ?', self.id, self.id)
+  end
+
+  def black_games
+    Game.where('black_player_id = ?', self.id)
+  end
+
+  def white_games
+    Game.where('white_player_id = ?', self.id)
+  end
 end
