@@ -4,7 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_games
-  has_many :games, through: :user_games
-  has_many :pieces, through: :games
+   has_many :games_as_white, class_name: 'Game', foreign_key: :white_player_id
+   has_many :games_as_black, class_name: 'Game', foreign_key: :black_player_id
+   has_many :pieces
+
+  def all_games
+    games_as_white + games_as_black
+  end
+
 end
