@@ -6,3 +6,4 @@ class Pawn < Piece
 # **Promotion** need to define special case for Pawns
 # Pawns have another special ability and that is that if a pawn reaches the other side of the board
 # it can become any other chess piece (called promotion). A pawn may be promoted to any piece.
+end
