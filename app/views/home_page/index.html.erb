@@ -1,2 +1,8 @@
-<br />
-<h1> Sup, Welcome to the game of Chess </h1>
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <br />
+  <h1 class="text-center"> Sup, Welcome to the game of Chess </h1>
+
+  <% @available_games.each do |game| %>
+    <h2 class="text-center"><%= game.title %></h2>
+  <% end %>
+</div>
