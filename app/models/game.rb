@@ -6,5 +6,20 @@ class Game < ActiveRecord::Base
   belongs_to :black_player, class_name: 'User'
   scope :available, -> { where("(black_player_id IS NOT NULL AND white_player_id IS NULL)
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
-
 end
+
+  def initialize_board!
+    #white pawns (8)
+    #white rooks
+    #white bishops
+    #white knights
+    #white king
+    #white queen
+
+    #black pawns (8)
+    #black rooks
+    #black bishops
+    #black knights
+    #black king
+    #black queen
+  end
