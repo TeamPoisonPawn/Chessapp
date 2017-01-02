@@ -12,6 +12,7 @@ class Piece < ActiveRecord::Base
 
   #determine if piece is obstructed to move
   def is_obstructed?(x_destination, y_destination)
+    game = Game.find(self.game_id)
     x_location = self.x_pos
     y_location = self.y_pos
     #check for vertical obstructions
