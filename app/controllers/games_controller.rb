@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   def show
-    @piece = Piece.first
-    @pieces = Piece.all
+    @game = Game.find(params[:id])
+    @piece = @game.pieces.first
+    @pieces = @game.pieces
   end
 end
