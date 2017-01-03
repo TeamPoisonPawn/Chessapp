@@ -6,9 +6,9 @@ class King < Piece
   def valid_move?(x_destination, y_destination)
     allowed_movement?(x_destination, y_destination)
   end
-  
+
   private
-  #king movement is only at 1 so
+  #king movement is only at 1 so when x_destination must be -1 from the location of the king(params)
   def allowed_movement?(x_destination, y_destination)
     x_movement_difference = (x_destination - x) #x needs to be changed to whatever we set the set params to
     y_movement_difference = (y_destination - y)
