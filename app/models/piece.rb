@@ -8,7 +8,7 @@ class Piece < ActiveRecord::Base
 
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
-    if nil_move?(x_destination, y_destination)
+    if move_is_nil?(x_destination, y_destination)
       return false
     elsif move_is_on_board?(x_destination, y_destination)
       return false
