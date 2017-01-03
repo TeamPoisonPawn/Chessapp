@@ -1,0 +1,26 @@
+<br />
+<div class="booyah-box col-xs-10 col-xs-offset-1">
+  <h1 class="text-center">The Battleground</h1>
+  <center>
+    <div class="board-container">
+      <table class="chess-board">
+        <tbody>
+          <% 8.downto(1) do |row| %>
+            <tr>
+              <% 1.upto(8) do |col| %>
+                <td class="<%= white_or_black(row) %>">
+                  <%= link_to '', piece_path(id: @piece.id, x_pos: col, y_pos: row), :class => piece_link(@piece), method: :put %>
+
+                  <% @pieces.detect do |piece| %>
+                    <% if piece.x_pos == col && piece.y_pos == row %>
+                      <%= link_to 'piece', piece_path(piece.id), :class => hilight(piece) %>
+                    <% end %>
+                  <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </center>
+</div>
