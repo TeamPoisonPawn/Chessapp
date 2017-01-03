@@ -6,6 +6,22 @@ class Piece < ActiveRecord::Base
     %w(Pawn Rook Bishop Knight Queen King)
   end
 
+  #The board size at maximum (x-axis, y-axis)
+  min_size = 0
+  max_size = 7
+
+  #is the piece moving?
+  def move_is_nil?(x,y)
+    x_location == x && y_location == y
+  end
+
+  #Check to see if the move exceeds the board size.
+  #This is set by min_size & max_size
+  def move_is_on_board?(x,y)
+    (x <= max_size && x >= min_size) && (y <= max_size && y >= min_size)
+  end
+
+  
   #should have a side eg. white or black
   #functionality of all the unique pieces
   #how far pieces can move. special cases for all.
