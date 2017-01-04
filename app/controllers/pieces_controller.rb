@@ -1,7 +1,6 @@
 class PiecesController < ApplicationController
   before_action :find_piece, :only => [:show, :update]
   def show
-    @pieces = @piece.game.pieces
     return render_not_found if @piece.blank?
   end
 
