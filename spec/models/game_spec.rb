@@ -7,16 +7,16 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   let(:game){FactoryGirl.create(:game)}
   describe "#populate_board!" do
-    it "should populate our game board with all chess pieces"
-      game.populate_board!
-      expect(game.pieces.count).to eq(32)
-    end
+    # it "should populate our game board with all chess pieces"
+    #   game.populate_board!
+    #   expect(game.Piece.count).to eq(32)
+    # end
     #this is another way to run our test when we are checking if the game is populating.
 
-    it "text" do
+    it "should populate our game board" do
       expect{
         game.populate_board!
-      }.to change{pieces.count}.by(32)
+      }.to change{Piece.count}.by(32)
     end
 
     #
@@ -25,6 +25,7 @@ RSpec.describe Game, type: :model do
 
 
   end
+end
 
 #notes:
 #add a :type(name) column; have the name of the pieces as the type. For piece and have it have a rook so we can actually run tests

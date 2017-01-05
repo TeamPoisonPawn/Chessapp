@@ -9,7 +9,7 @@ FactoryGirl.define do
 
   end
 
-  factory :pawn do    
+  factory :pawn do
   end
 
   factory :king do
