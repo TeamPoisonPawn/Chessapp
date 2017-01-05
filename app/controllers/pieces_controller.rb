@@ -7,8 +7,13 @@ class PiecesController < ApplicationController
   def update
     @game = @piece.game
     @pieces = @piece.game.pieces
-    @piece.update_attributes(x_pos: params[:x_pos], y_pos: params[:y_pos])
-    redirect_to game_path(@game.id)
+    #@piece.update_attributes(x_pos: params[:x_pos], y_pos: params[:y_pos])
+    if @piece.move_to!(params[:x_pos], params[:y_pos])
+      redirect_to game_path(@game.id)
+    else
+      flash.now[:alert] = "Piece cannot move there!"
+      render "show"
+    end
   end
 
   private

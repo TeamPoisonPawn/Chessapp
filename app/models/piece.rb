@@ -53,4 +53,23 @@ class Piece < ActiveRecord::Base
       return false
     end
   end
+
+  def move_to!(x_dest, y_dest)
+    x_old = self.x_pos
+    y_old = self.y_pos
+    my_color = self.color
+
+    dest_piece = Piece.find_by(game_id: self.game.id, x_pos: x_dest, y_pos: y_dest, active: true)
+
+    if !dest_piece
+      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
+      return true
+    elsif dest_piece.color != my_color
+      dest_piece.update_attributes(active: false)
+      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
+      true
+    else
+      return false
+    end
+  end
 end

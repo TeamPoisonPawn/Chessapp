@@ -14,7 +14,7 @@
                   <% end %>
 
                   <% pieces.detect do |piece| %>
-                    <% if piece.x_pos == col && piece.y_pos == row %>
+                    <% if piece.x_pos == col && piece.y_pos == row && piece.active %>
                       <%= link_to 'piece', piece_path(piece.id), :class => hilight(piece) %>
                     <% end %>
                   <% end %>
