@@ -7,6 +7,15 @@ class King < Piece
     allowed_movement?(x_destination, y_destination)
   end
 
+  def initialize(args)
+    super
+    if args[:color] == 1
+      write_attribute(:symbol, "white-king.jpg")
+    else
+      write_attribute(:symbol, "black-king.jpg")
+    end
+  end
+
   private
   #king movement is only at 1 so when x_destination must be -1 from the location of the king(params)
   def allowed_movement?(x_destination, y_destination)
