@@ -31,7 +31,7 @@ class Piece < ActiveRecord::Base
       end
       return false
     #check for diagnol obstructions
-    else 
+    elsif 
       raise error if(x_location - x_destination).abs != (y_location - y_destination).abs
       x_location > x_destination ? x_incrementer = -1 : x_incrementer = 1
       y_location > y_destination ? y_incrementer = -1 : y_incrementer = 1
@@ -42,6 +42,8 @@ class Piece < ActiveRecord::Base
         y_position += y_incrementer
       end
       return false
+    else
+      flash[:error] = 'Invalid input'
     end
   end
 
