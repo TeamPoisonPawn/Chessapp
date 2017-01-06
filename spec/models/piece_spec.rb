@@ -45,4 +45,18 @@ RSpec.describe Piece, type: :model do
 
     end
   end
+
+  describe "move_to! method" do
+    it "should return true and change the piece's position if no piece is on the destination" do
+
+    end
+
+    it "should return true, change the piece's position, and set the enemy piece inactive if an enemy piece is on the destination" do
+
+    end
+
+    it "should return false and not change the piece's position if a piece of the same color occupies the destination" do
+
+    end
+  end
 end
