@@ -6,7 +6,6 @@ class Game < ActiveRecord::Base
   belongs_to :black_player, class_name: 'User'
   scope :available, -> { where("(black_player_id IS NOT NULL AND white_player_id IS NULL)
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
-  after_create :populate_board!
 
   def populate_board!
     #Will need player ID, game_id, color, x_pos, and y_pos
@@ -30,7 +29,7 @@ class Game < ActiveRecord::Base
 
     #black pawns (x_pos:0-7, y_pos:6)
     (0..7).each do |p|
-    Pawn.create(:player_id => black_player_id, :game_id => self.id, :x_pos => p, :y_pos => 6, :color => 0)
+      Pawn.create(:player_id => black_player_id, :game_id => self.id, :x_pos => p, :y_pos => 6, :color => 0)
     end
     #black rooks (left: 0,7 / right: 7,7)
     Rook.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 0, :y_pos => 7, :color => 0)
