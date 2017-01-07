@@ -52,14 +52,5 @@ class Piece < ActiveRecord::Base
       end
       return false
     end
-    # else
-    #   raise error 'Invalid input'
-    # end
   end
-
-  # def any_piece_blocking?
-  #   if game.pieces.where(x_pos: x_position, y_pos: y_position).any?
-  #     return true
-  #   end
-  # end
 end
