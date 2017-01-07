@@ -3,13 +3,11 @@ require 'rails_helper'
 RSpec.describe Piece, type: :model do
   describe "is_obstructed? method" do
     it "should return false when no pieces on horizontal path" do
-      skip
       piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0)
       #expect(piece.is_obstructed?(5,0)).to be false
     end
 
     it "should return false when no pieces on vertical path" do
-      skip
       game = FactoryGirl.create(:game)
       piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0, game_id: game.id)
       expect(piece.is_obstructed?(0,5)).to be false
@@ -50,7 +48,6 @@ RSpec.describe Piece, type: :model do
 
   describe "move_to! method" do
     it "should return true and change the piece's position if no piece is on the destination" do
-      skip
       game = FactoryGirl.create(:game)
       piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0, game_id: game.id)
       expect(piece.move_to!(1,3)).to be true
