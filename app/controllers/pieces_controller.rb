@@ -1,7 +1,6 @@
 class PiecesController < ApplicationController
   before_action :find_piece, :only => [:show, :update]
   def show
-    return render_not_found if @piece.blank?
   end
 
   def update
@@ -22,7 +21,11 @@ class PiecesController < ApplicationController
   end
 
   def find_piece
-    @piece = Piece.find(params[:id])
+    begin
+      @piece = Piece.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      return render_not_found
+    end
   end
 
 end
