@@ -27,11 +27,11 @@
 }
 
 .chess-board .black {
-  background: #eee;
+  background: url:"black_square.jpg";
 }
 
 .chess-board .white {
-  background: #323232;
+  background: url:"white_square.jpg";
 }
 
 .chess-board {
@@ -60,8 +60,8 @@ a.active-link {
 
 .chess-board td {
   border: 1px solid;
-  width: 4em;
-  height: 4em;
+  width: 100px;
+  height: 100px;
   position: relative;
 }
 
