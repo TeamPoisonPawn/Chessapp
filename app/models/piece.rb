@@ -73,6 +73,7 @@ class Piece < ActiveRecord::Base
       end
       return false
     #check for diagnol obstructions
+
     else
       raise error if(x_location - x_destination).abs != (y_location - y_destination).abs
       x_location > x_destination ? x_incrementer = -1 : x_incrementer = 1
