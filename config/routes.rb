@@ -3,5 +3,4 @@ Rails.application.routes.draw do
   root 'home_page#index'
   resources :pieces, only: [:show, :update]
   resources :games, only: :show
-
 end
