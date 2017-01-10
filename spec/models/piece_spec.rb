@@ -9,7 +9,7 @@ RSpec.describe Piece, type: :model do
 
     it "should return false when no pieces on vertical path" do
       game = FactoryGirl.create(:game)
-      piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0, game_id: game.id)
+      piece = game.pieces.find_by(x_pos: 0, y_pos: 1)
       expect(piece.is_obstructed?(0,5)).to be false
     end
 
