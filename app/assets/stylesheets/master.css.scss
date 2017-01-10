@@ -27,11 +27,11 @@
 }
 
 .chess-board .black {
-  background: url("black-square.jpg");
+  background: url('black-square.jpg');
 }
 
 .chess-board .white {
-  background: url("white-square.jpg");
+  background: url('white-square.jpg');
 }
 
 .chess-board {
@@ -77,3 +77,11 @@ a.active-link {
   display: inline-block;
   position: relative;
 }
+
+.piece {
+  width: 30px;
+  height: 30px;
+  padding-left : 8px;
+}
+
+
