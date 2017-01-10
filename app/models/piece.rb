@@ -47,6 +47,7 @@ class Piece < ActiveRecord::Base
   #how far pieces can move. special cases for all.
   #determine if piece is obstructed to move
   def is_obstructed?(x_destination, y_destination)
+    game = Game.find(self.game_id)
     x_location = self.x_pos
     y_location = self.y_pos
     #check for vertical obstructions
@@ -54,6 +55,9 @@ class Piece < ActiveRecord::Base
       y_location > y_destination ? incrementer = -1 : incrementer = 1
       y_position = y_location + incrementer
       while y_position != y_destination
+        if game.pieces.where(x_pos: x_location, y_pos: y_position).any?
+          return true
+        end
         y_position += incrementer
       end
       return false
@@ -62,6 +66,9 @@ class Piece < ActiveRecord::Base
       x_location > x_destination ? incrementer = -1 : incrementer = 1
       x_position = x_location + incrementer
       while x_position != x_destination
+        if game.pieces.where(y_pos: y_location, x_pos: x_position).any?
+          return true
+        end
         x_position += incrementer
       end
       return false
@@ -73,6 +80,9 @@ class Piece < ActiveRecord::Base
       x_position = x_location + x_incrementer
       y_position = y_location + y_incrementer
       while x_position != x_destination && y_position != y_destination
+        if games.pieces.where(x_pos: x_position, y_pos: y_position).any?
+          return true
+        end
         x_position += x_incrementer
         y_position += y_incrementer
       end
@@ -80,10 +90,22 @@ class Piece < ActiveRecord::Base
     end
   end
 
-  def any_piece_blocking?
-    if games.pieces.where(x_pos: x_position, y_pos: y_position).any?
+  def move_to!(x_dest, y_dest)
+    x_old = self.x_pos
+    y_old = self.y_pos
+    my_color = self.color
+
+    dest_piece = Piece.find_by(game_id: self.game.id, x_pos: x_dest, y_pos: y_dest, active: true)
+
+    if !dest_piece
+      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
       return true
+    elsif dest_piece.color != my_color
+      dest_piece.update_attributes(active: false)
+      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
+      true
+    else
+      return false
     end
   end
-
 end
