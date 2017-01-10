@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20170106192426) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_id"
-    t.string   "type"
     t.boolean  "active"
+    t.string   "type"
   end
 
   add_index "pieces", ["game_id"], name: "index_pieces_on_game_id", using: :btree
