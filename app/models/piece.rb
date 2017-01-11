@@ -5,6 +5,15 @@ class Piece < ActiveRecord::Base
     where
   }
 
+  #we could just put, and not put that into each unique piece.
+  # after_initialize do
+  #   if color == 1
+  #     write_attribute(:piece_type, "white-#{type.downcase}.jpg")
+  #   else
+  #     write_attribute(:piece_type, "black-#{type.downcase}.jpg")
+  #   end
+  # end
+
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
   end
