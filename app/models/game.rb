@@ -6,43 +6,44 @@ class Game < ActiveRecord::Base
   belongs_to :black_player, class_name: 'User'
   scope :available, -> { where("(black_player_id IS NOT NULL AND white_player_id IS NULL)
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
+  after_create :populate_board!
 
   def populate_board!
     #Will need player ID, game_id, color, x_pos, and y_pos
     #white pawns (x_pos:0-7, y_pos:1)
     (0..7).each do |p|
-      Pawn.create(:player_id => white_player_id, :game_id => self.id, :x_pos => p, :y_pos => 1, :color => 1)
+      Pawn.create(:player_id => white_player_id, :game_id => self.id, :x_pos => p, :y_pos => 1, :color => 1, active: true)
     end
     #white rooks (left: 0,0 / right: 7,0)
-    Rook.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 0, :y_pos => 0, :color => 1)
-    Rook.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 7, :y_pos => 0, :color => 1)
+    Rook.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 0, :y_pos => 0, :color => 1, active: true)
+    Rook.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 7, :y_pos => 0, :color => 1, active: true)
     #white knights (left: 1,0 / right: 6,0)
-    Knight.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 1, :y_pos => 0, :color => 1)
-    Knight.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 6, :y_pos => 0, :color => 1)
+    Knight.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 1, :y_pos => 0, :color => 1, active: true)
+    Knight.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 6, :y_pos => 0, :color => 1, active: true)
     #white bishops (left: 2,0 / right: 5,0)
-    Bishop.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 2, :y_pos => 0, :color => 1)
-    Bishop.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 5, :y_pos => 0, :color => 1)
+    Bishop.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 2, :y_pos => 0, :color => 1, active: true)
+    Bishop.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 5, :y_pos => 0, :color => 1, active: true)
     #white queen (3,0)
-    Queen.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 3, :y_pos => 0, :color => 1)
+    Queen.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 3, :y_pos => 0, :color => 1, active: true)
     #white king (4,0)
-    King.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 4, :y_pos => 0, :color => 1)
+    King.create(:player_id => white_player_id, :game_id => self.id, :x_pos => 4, :y_pos => 0, :color => 1, active: true)
 
     #black pawns (x_pos:0-7, y_pos:6)
     (0..7).each do |p|
-      Pawn.create(:player_id => black_player_id, :game_id => self.id, :x_pos => p, :y_pos => 6, :color => 0)
+      Pawn.create(:player_id => black_player_id, :game_id => self.id, :x_pos => p, :y_pos => 6, :color => 0, active: true)
     end
     #black rooks (left: 0,7 / right: 7,7)
-    Rook.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 0, :y_pos => 7, :color => 0)
-    Rook.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 7, :y_pos => 7, :color => 0)
+    Rook.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 0, :y_pos => 7, :color => 0, active: true)
+    Rook.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 7, :y_pos => 7, :color => 0, active: true)
     #black knights (left: 1,7 / right: 6,7)
-    Knight.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 1, :y_pos => 7, :color => 0)
-    Knight.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 6, :y_pos => 7, :color => 0)
+    Knight.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 1, :y_pos => 7, :color => 0, active: true)
+    Knight.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 6, :y_pos => 7, :color => 0, active: true)
     #black bishops (left: 2,7 / right: 5,7)
-    Bishop.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 2, :y_pos => 7, :color => 0)
-    Bishop.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 5, :y_pos => 7, :color => 0)
+    Bishop.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 2, :y_pos => 7, :color => 0, active: true)
+    Bishop.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 5, :y_pos => 7, :color => 0, active: true)
     #black queen (3,7)
-    Queen.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 3, :y_pos => 7, :color => 0)
+    Queen.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 3, :y_pos => 7, :color => 0, active: true)
     #black king (4,7)
-    King.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 4, :y_pos => 7, :color => 0)
+    King.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 4, :y_pos => 7, :color => 0, active: true)
   end
 end
