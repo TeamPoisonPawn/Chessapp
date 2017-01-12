@@ -7,13 +7,5 @@ class Pawn < Piece
 # Pawns have another special ability and that is that if a pawn reaches the other side of the board
 # it can become any other chess piece (called promotion). A pawn may be promoted to any piece.
 
-  def initialize(args)
-    super
-    if args[:color] == 1
-      write_attribute(:piece_type, "white-pawn.jpg")
-    else
-      write_attribute(:piece_type, "black-pawn.jpg")
-    end
-  end
 
 end

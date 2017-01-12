@@ -1,9 +1,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
-  scope :rooks, -> {
-    where
-  }
 
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
@@ -12,6 +9,10 @@ class Piece < ActiveRecord::Base
   #The board size at maximum (x-axis, y-axis)
   min_size = 0
   max_size = 7
+
+  def piece_type
+    "#{self.color}-#{self.type.downcase}"
+  end
 
   #is the piece moving?
   def move_is_nil?(x_destination, y_destination)
