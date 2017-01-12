@@ -27,8 +27,8 @@ FactoryGirl.define do
   end
 
   factory :queen do
-    x_pos 3
-    y_pos 0
+    x_pos 4
+    y_pos 4
     game_id 1
     active true
     color "white"
