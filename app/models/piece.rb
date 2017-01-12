@@ -66,7 +66,7 @@ class Piece < ActiveRecord::Base
       x_location > x_destination ? incrementer = -1 : incrementer = 1
       x_position = x_location + incrementer
       while x_position != x_destination
-        if game.pieces.where(y_pos: y_location, x_pos: x_position).any?
+        if game.pieces.where(x_pos: x_position, y_pos: y_location).any?
           return true
         end
         x_position += incrementer
@@ -74,13 +74,13 @@ class Piece < ActiveRecord::Base
       return false
     #check for diagnol obstructions
     else
-      raise error if(x_location - x_destination).abs != (y_location - y_destination).abs
+      (x_location - x_destination).abs != (y_location - y_destination).abs
       x_location > x_destination ? x_incrementer = -1 : x_incrementer = 1
       y_location > y_destination ? y_incrementer = -1 : y_incrementer = 1
       x_position = x_location + x_incrementer
       y_position = y_location + y_incrementer
       while x_position != x_destination && y_position != y_destination
-        if games.pieces.where(x_pos: x_position, y_pos: y_position).any?
+        if game.pieces.where(x_pos: x_position, y_pos: y_position).any?
           return true
         end
         x_position += x_incrementer

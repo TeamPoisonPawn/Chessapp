@@ -8,7 +8,6 @@ RSpec.describe Game, type: :model do
   let(:game){FactoryGirl.create(:game)}
   describe "#populate_board!" do
     it "should populate our game board with all chess pieces" do
-      game.populate_board!
       expect(game.pieces.count).to eq(32) #game.pieces is an association.
     end
     #If you define your own class-specific method, you can call these methods on the class.
@@ -16,7 +15,7 @@ RSpec.describe Game, type: :model do
     #Another way to write game.pieces.count can be "Piece.where(game_id: game:id).count"
     it "should populate our game board" do
       expect{
-        game.populate_board!
+        game
       }.to change{Piece.count}.by(32)
     end
 
