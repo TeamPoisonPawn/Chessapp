@@ -1,48 +1,97 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
+
+  let(:game) { FactoryGirl.create(:game) }
+  let(:piece) { FactoryGirl.create(:piece, x_pos: 4, y_pos: 4, game_id: game.id) }
+
   describe "is_obstructed? method" do
-    it "should return false when no pieces on horizontal path" do
-      piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0)
-      #expect(piece.is_obstructed?(5,0)).to be false
+
+    subject { piece.is_obstructed?(x_destination, y_destination) }
+
+    context "right" do
+      let(:x_destination) { 6 }
+      let(:y_destination) { 4 }
+
+      it "should return false when no pieces on horizontal path" do
+        expect(subject).to be false
+      end
+
+      it "should return true when another piece is on the horizontal path" do
+        FactoryGirl.create(:piece, x_pos: 5, y_pos: 4, game_id: game.id)
+        expect(subject).to be true 
+      end
     end
 
-    it "should return false when no pieces on vertical path" do
-      game = FactoryGirl.create(:game)
-      piece = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0, game_id: game.id)
-      expect(piece.is_obstructed?(0,5)).to be false
+    context "left" do
+      let (:x_destination) { 0 }
+      let (:y_destination) { 4 }
+
+      it "should return false when no pieces on horizontal path" do
+        expect(subject).to be false
+      end
+
+      it "should return true when another piece is on the horizontal path" do
+        FactoryGirl.create(:piece, x_pos: 1, y_pos: 4, game_id: game.id)
+        expect(subject).to be true
+      end
     end
 
-    it "should return false when no pieces on diagonal path" do
+    context "up" do
+      let(:x_destination) { 4 }
+      let(:y_destination) { 6 }
 
+      it "should return false when no pieces on vertical path" do
+        expect(subject).to be false
+      end
+
+      it "should return true when piece on vertical path" do
+        FactoryGirl.create(:piece, x_pos: 4, y_pos: 5, game_id: game.id)
+        expect(subject).to be true
+      end
     end
 
-    it "should return true when another piece is on the horizontal path" do
+    context "down" do
+      let(:piece) { FactoryGirl.create(:piece, x_pos: 5, y_pos: 5, game_id: game.id) }
+      let(:x_destination) { 5 }
+      let(:y_destination) { 3 }
 
+      it "should return false when no pieces on vertical path" do
+        expect(subject).to be false
+      end
+
+      it "should return true when another piece is on vertical path" do
+        FactoryGirl.create(:piece, x_pos: 5, y_pos: 4, game_id: game.id)
+        expect(subject).to be true
+      end
     end
 
-    it "should return false when a piece is on the horizontal path destination" do
+    context "up and right" do
+      let(:x_destination) { 6 }
+      let(:y_destination) { 6 }
 
+      it "should return false when no pieces are on diagonal path" do
+        expect(subject).to be false
+      end
+
+      it "should return true when another piece is on vertical path" do
+        FactoryGirl.create(:piece, x_pos: 5, y_pos: 5, game_id: game.id)
+        expect(subject).to be true
+      end
     end
 
-    it "should return false when a piece is on the vertical path destination" do
+    context "down and left" do
+      let(:x_destination) { 2 }
+      let(:y_destination) { 2 }
 
-    end
+      it "should return false when no pieces are on diagonal path" do
+        expect(subject).to be false
+      end
 
-    it "should return false when a piece is on the diagonal path detaination" do
-
-    end
-
-    it "should return true when another piece is on the vertical path" do
-
-    end
-
-    it "should return true when another piece is on the diagonal path" do
-
-    end
-
-    it "should raise an error when the path is invalid" do
-
+      it "should return true when another piece is on diagonal path" do
+        FactoryGirl.create(:piece, x_pos: 3, y_pos: 3, game_id: game.id)
+        expect(subject).to be true
+      end
     end
   end
 
@@ -72,7 +121,6 @@ RSpec.describe Piece, type: :model do
       piece1 = FactoryGirl.create(:piece, x_pos: 0, y_pos: 0, game_id: game.id, color: "white", active: true)
       piece2 = FactoryGirl.create(:piece, x_pos: 2, y_pos: 2, game_id: game.id, color: "white", active: true)
       expect(piece1.move_to!(2,2)).to be false
-
     end
   end
 end
