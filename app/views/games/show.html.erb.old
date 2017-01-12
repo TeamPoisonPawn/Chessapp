@@ -1,0 +1,83 @@
+<center>The Battleground</center>
+<table id="gameboard" width='481' height='480' align='center' border='1'>
+  <tr><!--Row 1-->
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+  </tr>
+  <tr><!--Row 2-->
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+  </tr>
+  <tr><!--Row 3-->
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+  </tr>
+  <tr><!--Row 4-->
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+  </tr>
+  <tr><!--Row 5-->
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+  </tr>
+  <tr><!--Row 6-->
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+  </tr>
+  <tr><!--Row 7-->
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+  </tr>
+  <tr><!--Row 8-->
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+    <td width="60" height="60" bgcolor="white"></td>
+    <td width="60" height="60" bgcolor="black"></td>
+  </tr>
+</table>

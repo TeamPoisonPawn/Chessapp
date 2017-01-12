@@ -3,6 +3,6 @@
   <h1 class="text-center"> Sup, Welcome to the game of Chess </h1>
 
   <% @available_games.each do |game| %>
-    <h2 class="text-center"><%= game.title %></h2>
+    <h2 class="text-center"><%= link_to game.title, game_path(game.id) %></h2>
   <% end %>
 </div>
