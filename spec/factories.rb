@@ -15,12 +15,18 @@ FactoryGirl.define do
   end
 
   factory :king do
+    x_pos 3
+    y_pos 0
   end
 
   factory :rook do
+    x_pos 0
+    y_pos 0
   end
 
   factory :bishop do
+    x_pos 2
+    y_pos 0
   end
 
   factory :knight do
