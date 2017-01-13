@@ -31,24 +31,21 @@ class Piece < ActiveRecord::Base
 
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
+    # if move_is_nil?(x_destination, y_destination)
+    #   return false
+    # elsif move_is_on_board?(x_destination, y_destination)
+    #   return false
+    # elsif legal_move?(x_destination, y_destination)
+    #   return false
+    # else is_obstructed?(x_destination, y_destination)
+    #   return false
+    # end
+
+    #Other way to write out this code.
     !move_is_nil?(x_destination, y_destination) &&
-    move_is_on_board?(x_destination, y_destination) &&
+    !move_is_on_board?(x_destination, y_destination) &&
     !legal_move?(x_destination, y_destination) &&
     !is_obstructed?(x_destination, y_destination)
-  end
-
-
-  def horizontal?(y_destination)
-    (y_destination == self.y_pos)
-  end
-
-  def vertical?(x_destionation)
-    (x_destionation == self.x_pos)
-  end
-
-  def diagonal?(x_destionation, y_destination)
-    (x_destionation - self.x_pos).abs == 
-    (y_destination - self.y_pos).abs
   end
 
   #should have a side eg. white or black

@@ -3,15 +3,8 @@ class Queen < Piece
   # or diagonally - as far as possible as long as she does not move through any of her own pieces.
  
 
-  def can_move?(x_destionation, y_destination)
-    return false unless valid_move?(x_destionation, y_destination)
-    #Queen can move horizontal, vertical, and diagnol
-    return false unless (horizontal?(y_destination) || vertical?(x_destionation)|| diagonal?(x_destionation, y_destination))
-    true  
+  def can_move?(x, y)
+    x_pos == x || y_pos == y ||
+    (x_pos - x).abs == (y_pos - y).abs
   end
-#   def can_move?(x_destionation, y_destination)
-#   (valid_move?(x_destionation, y_destination) &&
-#      (horizontal?(y_destination) || vertical?(x_destionation)|| diagonal?(x_destionation, y_destination)))
-#   #Queen can move horizontal, vertical, and diagnol
-# end
 end
