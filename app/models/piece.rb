@@ -1,9 +1,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
-  scope :rooks, -> {
-    where
-  }
 
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
@@ -15,13 +12,15 @@ class Piece < ActiveRecord::Base
 
   # is the piece moving?
   def move_is_nil?(x_destination, y_destination)
-    x_location == x && y_location == y
+    x_destination == x_pos && y_destination == y_pos
   end
 
   # Check to see if the move exceeds the board size.
   # This is set by min_size & max_size
   def move_is_on_board?(x_destination, y_destination)
-    (x <= max_size && x >= min_size) && (y <= max_size && y >= min_size)
+    min_size = 0
+    max_size = 7
+    (x_destination <= max_size && x_destination >= min_size) && (y_destination <= max_size && y_destination >= min_size)
   end
 
   # Can this piece move legally?
@@ -31,15 +30,6 @@ class Piece < ActiveRecord::Base
 
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
-    # if move_is_nil?(x_destination, y_destination)
-    #   return false
-    # elsif move_is_on_board?(x_destination, y_destination)
-    #   return false
-    # elsif legal_move?(x_destination, y_destination)
-    #   return false
-    # else is_obstructed?(x_destination, y_destination)
-    #   return false
-    # end
 
     #Other way to write out this code.
     !move_is_nil?(x_destination, y_destination) &&
@@ -80,7 +70,7 @@ class Piece < ActiveRecord::Base
       return false
     #check for diagnol obstructions
     else
-      (x_location - x_destination).abs != (y_location - y_destination).abs
+      (x_location - x_destination).abs == (y_location - y_destination).abs
       x_location > x_destination ? x_incrementer = -1 : x_incrementer = 1
       y_location > y_destination ? y_incrementer = -1 : y_incrementer = 1
       x_position = x_location + x_incrementer
