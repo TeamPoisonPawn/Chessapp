@@ -4,5 +4,6 @@
 
   <% @available_games.each do |game| %>
     <h2 class="text-center"><%= link_to game.title, game_path(game.id) %></h2>
+    <center><%= link_to 'Join', game_path(game.id), method: :put %></center>
   <% end %>
 </div>
