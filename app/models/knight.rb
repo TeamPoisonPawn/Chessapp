@@ -13,11 +13,12 @@ class Knight < Piece
     end
   end
 
-  def legal_move?(x, y)
-    if x_pos == x || y_pos == y
+  def valid_move?(x_destination, y_destination)
+    super
+    if x_pos == x_destination || y_pos == y_destination
       return false
     end
-    (x_pos - x).abs + (y_pos - y).abs == 3
+    (x_pos - x_destination).abs + (y_pos - y_destination).abs == 3
   end
 
   def is_obstructed?(x_destination, y_destination)
