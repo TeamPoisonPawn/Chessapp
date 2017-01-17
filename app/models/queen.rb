@@ -8,3 +8,7 @@ class Queen < Piece
       (x_pos - x_destination).abs == (y_pos - y_destination).abs
   end
 end
+
+# return false if x_destination == x_pos || y_destination == y_pos
+# return false if (x_pos - x_destination).abs == (y_pos - y_destination).abs
+#     true
