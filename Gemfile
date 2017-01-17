@@ -5,6 +5,7 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 gem 'sprockets', '2.11.0'
+gem 'jquery-ui-rails'
 
 gem 'rails_12factor', group: :production
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
