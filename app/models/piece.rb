@@ -34,7 +34,7 @@ class Piece < ActiveRecord::Base
     #Other way to write out this code.
     !move_is_nil?(x_destination, y_destination) &&
     !move_is_on_board?(x_destination, y_destination) &&
-    !legal_move?(x_destination, y_destination) &&
+    legal_move?(x_destination, y_destination) &&
     !is_obstructed?(x_destination, y_destination)
   end
 
