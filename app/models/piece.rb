@@ -16,25 +16,19 @@ class Piece < ActiveRecord::Base
 
   #is the piece moving?
   def move_is_nil?(x_destination, y_destination)
-    x_location == x && y_location == y
+    x_destination == x_pos && y_destination == y_pos
   end
 
   #Check to see if the move exceeds the board size.
   #This is set by min_size & max_size
   def move_is_on_board?(x_destination, y_destination)
-    (x <= max_size && x >= min_size) && (y <= max_size && y >= min_size)
-  end
-
-  #Can this piece move legally?
-  def legal_move?(_x, _y)
-    raise NotImplementError 'have #legal_move?'
+    (x_destination <= max_size && x_destination >= min_size) && (y_destination <= max_size && y_destination >= min_size)
   end
 
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
     !move_is_nil?(x_destination, y_destination) &&
     move_is_on_board?(x_destination, y_destination) &&
-    !legal_move?(x_destination, y_destination) &&
     !is_obstructed?(x_destination, y_destination)
   end
 
@@ -87,21 +81,37 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x_dest, y_dest)
-    x_old = self.x_pos
-    y_old = self.y_pos
-    my_color = self.color
-
-    dest_piece = Piece.find_by(game_id: self.game.id, x_pos: x_dest, y_pos: y_dest, active: true)
-
-    if !dest_piece
+    if capture_or_clear?(x_dest, y_dest)
       self.update_attributes(x_pos: x_dest, y_pos: y_dest)
       return true
-    elsif dest_piece.color != my_color
-      dest_piece.update_attributes(active: false)
-      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
-      true
-    else
-      return false
     end
+    return false
+  end
+
+  def capture_or_clear?(x_dest, y_dest)
+    dest_piece = piece_at_location(x_dest, y_dest)
+
+    if dest_piece
+      if dest_piece.color == self.color
+        return false
+      elsif dest_piece.color != self.color
+        dest_piece.deactivate!()
+      end
+    end
+    return true
+  end
+
+  def deactivate!
+    self.update_attributes(active: false)
+  end
+
+  private
+
+  def piece_at_location(x, y)
+    return self.class.find_by(
+      game_id: self.game_id,
+      x_pos: x,
+      y_pos: y,
+      active: true)
   end
 end

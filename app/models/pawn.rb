@@ -7,6 +7,10 @@ class Pawn < Piece
 # Pawns have another special ability and that is that if a pawn reaches the other side of the board
 # it can become any other chess piece (called promotion). A pawn may be promoted to any piece.
 
+  def valid_move?(x_dest, y_dest)
+    super && legal_move?(x_dest, y_dest)
+  end
+
   def legal_move?(x_dest, y_dest)
     x_diff = (x_dest - self.x_pos).abs
     y_diff = y_dest - self.y_pos
