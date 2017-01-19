@@ -18,6 +18,16 @@ RSpec.describe Queen, type: :model do
       end
     end
 
+    context "move is nil" do
+
+      let(:x_destination) { 4 }
+      let(:y_destination) { 4 }
+
+      it "should be false if piece doesn't move" do
+        expect(subject).to eq(false)
+      end
+    end
+
     context "up" do
 
       let(:x_destination) { 4 }
@@ -27,9 +37,9 @@ RSpec.describe Queen, type: :model do
         expect(subject).to eq(true)
       end
 
-      it "should return true queen is obstructed" do
+      it "should return false if queen is obstructed" do
         piece = FactoryGirl.create(:piece, x_pos: 4, y_pos: 5, game_id: game.id, color: "white", active: true)
-          expect(subject).to eq(true)
+          expect(subject).to eq(false)
       end
     end
 
@@ -41,9 +51,9 @@ RSpec.describe Queen, type: :model do
         expect(subject).to eq(true)
       end
 
-      it "should return true if queen is obstructed" do
+      it "should return false if queen is obstructed" do
         piece = FactoryGirl.create(:piece, x_pos: 4, y_pos: 3, game_id: game.id, color: "white", active: true)
-        expect(subject).to eq(true)
+        expect(subject).to eq(false)
       end
     end
 
@@ -56,9 +66,9 @@ RSpec.describe Queen, type: :model do
         expect(subject).to eq(true)
       end
 
-      it "should return true if queen is obstructed" do
+      it "should return false if queen is obstructed" do
         piece = FactoryGirl.create(:piece, x_pos: 5, y_pos: 4, game_id: game.id, color: "white", active: true)
-        expect(subject).to eq(true)
+        expect(subject).to eq(false)
       end
     end
 
@@ -71,9 +81,9 @@ RSpec.describe Queen, type: :model do
         expect(subject).to eq(true)
       end
 
-      it "should return true if queen is obstructed" do
+      it "should return false if queen is obstructed" do
         piece = FactoryGirl.create(:piece, x_pos: 3, y_pos: 4, game_id: game.id, color: "white", active: true)
-        expect(subject).to eq(true)
+        expect(subject).to eq(false)
       end
     end
 
@@ -86,9 +96,9 @@ RSpec.describe Queen, type: :model do
         expect(subject).to eq(true)
       end
 
-      it "should return true if queen is obstructed" do
+      it "should return false if queen is obstructed" do
         piece = FactoryGirl.create(:piece, x_pos: 3, y_pos: 5, game_id: game.id, color: "white", active: true)
-        expect(subject).to eq(true)
+        expect(subject).to eq(false)
       end
     end
   end
