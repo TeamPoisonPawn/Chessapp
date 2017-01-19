@@ -1,11 +1,17 @@
-<script>
-  $( function() {
-    $( '.piece' ).sortable({
-      update: function( event, ui) {
-        alert(ui.item.index());
-      }
-    });
-  });
+<script type="text/javascript">
+ $('a').draggable({ containment: "chess-board", revert: 'invalid' });
+
+$('td').droppable({
+    drop: function(event, ui) {
+        var dropped = ui.draggable;
+        var droppedOn = $(this);
+        $(droppedOn).droppable("disable");
+        $(dropped).parent().droppable("enable");
+        $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
+    }
+});   
+
+$('td').not('td:empty').droppable("disable");
 </script>
 
 <br />
@@ -19,7 +25,7 @@
           <% 7.downto(0) do |row| %>
             <tr>
               <% 0.upto(7) do |col| %>
-                <td class="<%= white_or_black(row) %>">
+                <td class="<%= white_or_black(row) %>"><a>
                   <% if selected_piece %>
                     <%= link_to '', piece_path(id: selected_piece.id, x_pos: col, y_pos: row), :class => piece_link(selected_piece), method: :put %>
                   <% end %>
@@ -32,7 +38,7 @@
               <% end %>
             </tr>
           <% end %>
-        </tbody>
+        </a></tbody>
       </table>
     </div>
   </center>
