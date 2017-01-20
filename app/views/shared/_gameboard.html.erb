@@ -1,14 +1,16 @@
 <script type="text/javascript">
- $('a').draggable({ containment: "chess-board", revert: 'invalid' });
+$( function() {
+  $('a').draggable({ containment: "chess-board", revert: 'invalid' });
 
-$('td').droppable({
-    drop: function(event, ui) {
-        var dropped = ui.draggable;
-        var droppedOn = $(this);
-        $(droppedOn).droppable("disable");
-        $(dropped).parent().droppable("enable");
-        $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
-    }
+  $('td').droppable({
+      drop: function(event, ui) {
+          var dropped = ui.draggable;
+          var droppedOn = $(this);
+          $(droppedOn).droppable("disable");
+          $(dropped).parent().droppable("enable");
+          $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
+      }
+    });
 });   
 
 $('td').not('td:empty').droppable("disable");
