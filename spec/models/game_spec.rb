@@ -23,6 +23,26 @@ RSpec.describe Game, type: :model do
     # it "should have rooks on (0,0), (0,7)"
     #   game = FactoryGirl.create(:game)
 
+  end
+
+  describe "check?" do
+    it "should return true if remaining enemy pieces can capture king" do
+      game = FactoryGirl.create(:game)
+      pawn_black = game.pieces.find_by x_pos: 2, y_pos: 6
+      pawn_white = game.pieces.find_by x_pos: 5, y_pos: 1
+      king_white = game.pieces.find_by x_pos: 4, y_pos: 0
+      pawn_white.move_to!(5, 3)
+      pawn_black.move_to!(5, 1)
+      expect(game.check?(pawn_white.color)).to be true
+    end
+
+    it "should return false if remaining enemy pieces cannot capture king" do
+      game = FactoryGirl.create(:game)
+      pawn_black = game.pieces.find_by x_pos: 4, y_pos: 6
+      pawn_white = game.pieces.find_by x_pos: 4, y_pos: 1
+      king_white = game.pieces.find_by x_pos: 4, y_pos: 0
+      expect(game.check?(pawn_white.color)).to be false
+    end
 
   end
 end

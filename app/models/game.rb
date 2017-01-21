@@ -8,6 +8,10 @@ class Game < ActiveRecord::Base
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
   after_create :populate_board!
 
+  #The board size at maximum (x-axis, y-axis)
+  $min_size = 0
+  $max_size = 7
+
   def populate_board!
     #Will need player ID, game_id, color, x_pos, and y_pos
     #white pawns (x_pos:0-7, y_pos:1)
@@ -46,4 +50,22 @@ class Game < ActiveRecord::Base
     #black king (4,7)
     King.create(:player_id => black_player_id, :game_id => self.id, :x_pos => 4, :y_pos => 7, :color => "black", active: true, has_moved: false)
   end
+
+  def check?(color)
+    king = pieces.find_by(type: 'King', color: color)
+    enemy_remaining = pieces.where(game_id: self.id, active: true, color: enemy_color(color) )
+    enemy_remaining.each do |piece|
+      if piece.valid_move?(king.x_pos, king.y_pos)
+        return true
+      end
+    end
+    return false
+  end
+
+  def enemy_color(color)
+    return "white" if color == "black"
+    return "black"
+  end
+
+
 end
