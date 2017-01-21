@@ -4,7 +4,7 @@ class King < Piece
   # ** Special case **
   # The king may never move himself into check (where he could be captured).
 
-  def can_move?(x_destination, y_destination)
+  def valid_move?(x_destination, y_destination)
     super
     return false if move_too_far?(x_destination, y_destination)
     true
