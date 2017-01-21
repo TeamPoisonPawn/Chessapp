@@ -7,7 +7,8 @@ class Piece < ActiveRecord::Base
   end
 
   #The board size at maximum (x-axis, y-axis)
-
+  $min_size = 0
+  $max_size = 7
 
   def piece_type
     "#{self.color}-#{self.type.downcase}"
@@ -21,9 +22,7 @@ class Piece < ActiveRecord::Base
   #Check to see if the move exceeds the board size.
   #This is set by min_size & max_size
   def move_is_on_board?(x_destination, y_destination)
-    min_size = 0
-    max_size = 7
-    (x_destination <= max_size && x_destination >= min_size) && (y_destination <= max_size && y_destination >= min_size)
+    (x_destination <= $max_size && x_destination >= $min_size) && (y_destination <= $max_size && y_destination >= $min_size)
   end
 
   #If it passes all steps, move is valid
@@ -104,15 +103,6 @@ class Piece < ActiveRecord::Base
 
   def deactivate!
     self.update_attributes(active: false)
-  end
-
-  def active_enemy_pieces
-    return Piece.find_each(game_id: self.game.id, active: true, color: self.enemy_color)
-  end
-
-  def enemy_color
-    return "black" if self.color == "white"
-    return "white"
   end
 
   private
