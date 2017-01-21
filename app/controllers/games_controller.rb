@@ -8,14 +8,12 @@ class GamesController < ApplicationController
   def update
     if @game.black_player_id.nil? && @game.white_player_id != current_user.id
       @game.update_attributes(black_player_id: current_user.id)
-      render "show"
     elsif @game.white_player_id.nil? && @game.black_player_id != current_user.id
       @game.update_attributes(white_player_id: current_user.id)
-      render "show"
     else
       flash.now[:alert] = "You are already a player in this game!"
-      render "show"
     end
+    render "show"
   end
 
   private
