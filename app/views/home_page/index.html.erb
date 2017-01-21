@@ -3,7 +3,7 @@
   <h1 class="text-center"> Sup, Welcome to the game of Chess </h1>
 
   <% @available_games.each do |game| %>
-    <h2 class="text-center"><%= link_to game.title, controller: "games", action: "show", id: game.id %></h2>
+    <h2 class="text-center"><%= link_to game.title, game_path(game.id) %></h2>
     <center><%= link_to 'Join', game_path(game.id), :method => :put %></center>
   <% end %>
 </div>
