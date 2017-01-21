@@ -105,6 +105,15 @@ class Piece < ActiveRecord::Base
     self.update_attributes(active: false)
   end
 
+  def active_enemy_pieces
+    return Piece.find_each(game_id: self.game.id, active: true, color: self.enemy_color)
+  end
+
+  def enemy_color
+    return "black" if self.color == "white"
+    return "white"
+  end
+
   private
 
   def piece_at_location(x, y)
