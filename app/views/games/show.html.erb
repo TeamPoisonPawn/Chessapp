@@ -1,1 +1,49 @@
+<!--         var update_piece = {
+          id: piece.data('piece-id'),
+          x_pos: destination_square.data('x_destination'),
+          y_pos: destination_square.data('y_destination'),
+        }
+      $.ajax({
+        type: 'PATCH',
+        url: '/pieces/' + update_piece.id,
+        dataType: 'json',
+        data: {piece.id: update_piece.id, x_pos: update_piece.x_pos, y_pos: update_piece.y_pos},
+        success: function(data) {
+          destination_square.empty();
+        },
+        error: function(data) {
+          alert("Invalid Move");
+        }
+      });
+    }
+  });
+});
+$('td').not('td:empty').droppable("disable");
+ -->
+<script>
+$(document).ready(function () {
+
+  // Selecting & Moving Pieces
+  $('.chess-board a').draggable({containment: "chess-board", revert: 'invalid'});
+
+  $('.chess-board td').droppable({
+    drop: function(event, ui) {
+      var dropped = ui.draggable;
+      var droppedOn = $(this);
+      $(droppedOn).droppable("disable");
+      $(dropped).parent().droppable("enable");
+      $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
+      helper: 'clone'
+      var update_piece = {
+        id: piece.data('piece-id'),
+        x_pos: destination_square.data('x_dest'),
+        y_pos: destination_square.data('y_dest'),
+        }
+    }
+  });
+});   
+
+$('td').not('td:empty').droppable("disable");
+</script>
+
 <%= render 'shared/gameboard', pieces: @game.pieces, selected_piece: nil %>
