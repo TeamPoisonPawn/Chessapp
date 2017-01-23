@@ -26,13 +26,17 @@
   padding:20px;
 }
 
-.chess-board .black {
+/**********************************************
+    CHESSBOARD STYLING 
+ **********************************************/
+
+/*.chess-board .black {
   background: url('black-square.jpg');
 }
 
 .chess-board .white {
   background: url('white-square.jpg');
-}
+}*/
 
 .chess-board {
   border-spacing: 0;
@@ -79,8 +83,8 @@ a.active-link {
 }
 
 .piece {
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   padding-left : 8px;
 }
 
