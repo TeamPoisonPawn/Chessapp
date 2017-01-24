@@ -6,7 +6,8 @@ class Game < ActiveRecord::Base
   belongs_to :black_player, class_name: 'User'
   scope :available, -> { where("(black_player_id IS NOT NULL AND white_player_id IS NULL)
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
-  after_create :populate_board!
+
+after_create :populate_board!
 
   def populate_board!
     #Will need player ID, game_id, color, x_pos, and y_pos

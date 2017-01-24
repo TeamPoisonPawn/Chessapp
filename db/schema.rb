@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20170113000202) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_id"
-    t.boolean  "active"
     t.string   "type"
+    t.boolean  "active"
     t.boolean  "has_moved"
   end
 
