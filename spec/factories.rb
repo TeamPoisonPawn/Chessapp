@@ -4,7 +4,7 @@ FactoryGirl.define do
     y_pos 0
     game_id 1
     active true
-    color "black"
+    color "white"
   end
   factory :game do
     white_player_id 1

@@ -2,15 +2,6 @@ class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
 
-  #we could just put, and not put that into each unique piece.
-  # after_initialize do
-  #   if color == 1
-  #     write_attribute(:piece_type, "white-#{type.downcase}.jpg")
-  #   else
-  #     write_attribute(:piece_type, "black-#{type.downcase}.jpg")
-  #   end
-  # end
-
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
   end
@@ -74,7 +65,7 @@ class Piece < ActiveRecord::Base
       return false
     #check for diagnol obstructions
     else
-      (x_location - x_destination).abs != (y_location - y_destination).abs
+      (x_location - x_destination).abs == (y_location - y_destination).abs
       x_location > x_destination ? x_incrementer = -1 : x_incrementer = 1
       y_location > y_destination ? y_incrementer = -1 : y_incrementer = 1
       x_position = x_location + x_incrementer
