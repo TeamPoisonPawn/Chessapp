@@ -5,4 +5,16 @@ class Knight < Piece
   # Knights are also the only pieces that can move over other pieces.
 
 
+  def valid_move?(x_destination, y_destination)
+    super
+    if x_pos == x_destination || y_pos == y_destination
+      return false
+    end
+    (x_pos - x_destination).abs + (y_pos - y_destination).abs == 3
+  end
+
+  def is_obstructed?(x_destination, y_destination)
+    return false
+  end
+
 end
