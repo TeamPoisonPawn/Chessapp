@@ -15,7 +15,7 @@
 
                   <% pieces.detect do |piece| %>
                     <% if piece.x_pos == col && piece.y_pos == row && piece.active %>
-                      <%= link_to image_tag("#{piece.piece_type}"), piece_path(piece.id), :class => hilight(piece) %>
+                      <%= link_to image_tag("#{piece.piece_type}.jpg"), piece_path(piece.id), :class => hilight(piece) %>
                     <% end %>
                   <% end %>
               <% end %>

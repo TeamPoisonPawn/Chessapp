@@ -1,17 +1,26 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
-  scope :rooks, -> {
-    where
-  }
+
+  #we could just put, and not put that into each unique piece.
+  # after_initialize do
+  #   if color == 1
+  #     write_attribute(:piece_type, "white-#{type.downcase}.jpg")
+  #   else
+  #     write_attribute(:piece_type, "black-#{type.downcase}.jpg")
+  #   end
+  # end
 
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
   end
 
   #The board size at maximum (x-axis, y-axis)
-  min_size = 0
-  max_size = 7
+
+
+  def piece_type
+    "#{self.color}-#{self.type.downcase}"
+  end
 
   #is the piece moving?
   def move_is_nil?(x_destination, y_destination)
@@ -26,22 +35,11 @@ class Piece < ActiveRecord::Base
     (x_destination <= max_size && x_destination >= min_size) && (y_destination <= max_size && y_destination >= min_size)
   end
 
-  #Can this piece move legally?
-  def legal_move?(_x, _y)
-    raise NotImplementError 'have #legal_move?'
-  end
-
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
-    if move_is_nil?(x_destination, y_destination)
-      return false
-    elsif move_is_on_board?(x_destination, y_destination)
-      return false
-    elsif legal_move?(x_destination, y_destination)
-      return false
-    else is_obstructed?(x_destination, y_destination)
-      return false
-    end
+    !move_is_nil?(x_destination, y_destination) &&
+    move_is_on_board?(x_destination, y_destination) &&
+    !is_obstructed?(x_destination, y_destination)
   end
 
   #should have a side eg. white or black
@@ -93,21 +91,37 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x_dest, y_dest)
-    x_old = self.x_pos
-    y_old = self.y_pos
-    my_color = self.color
-
-    dest_piece = Piece.find_by(game_id: self.game.id, x_pos: x_dest, y_pos: y_dest, active: true)
-
-    if !dest_piece
+    if capture_or_clear?(x_dest, y_dest)
       self.update_attributes(x_pos: x_dest, y_pos: y_dest)
       return true
-    elsif dest_piece.color != my_color
-      dest_piece.update_attributes(active: false)
-      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
-      true
-    else
-      return false
     end
+    return false
+  end
+
+  def capture_or_clear?(x_dest, y_dest)
+    dest_piece = piece_at_location(x_dest, y_dest)
+
+    if dest_piece
+      if dest_piece.color == self.color
+        return false
+      elsif dest_piece.color != self.color
+        dest_piece.deactivate!()
+      end
+    end
+    return true
+  end
+
+  def deactivate!
+    self.update_attributes(active: false)
+  end
+
+  private
+
+  def piece_at_location(x, y)
+    return self.class.find_by(
+      game_id: self.game_id,
+      x_pos: x,
+      y_pos: y,
+      active: true)
   end
 end
