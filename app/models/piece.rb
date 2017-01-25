@@ -7,8 +7,11 @@ class Piece < ActiveRecord::Base
   end
 
   #The board size at maximum (x-axis, y-axis)
-  min_size = 0
-  max_size = 7
+
+
+  def piece_type
+    "#{self.color}-#{self.type.downcase}"
+  end
 
   #is the piece moving?
   def move_is_nil?(x_destination, y_destination)
@@ -79,21 +82,37 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x_dest, y_dest)
-    x_old = self.x_pos
-    y_old = self.y_pos
-    my_color = self.color
-
-    dest_piece = Piece.find_by(game_id: self.game.id, x_pos: x_dest, y_pos: y_dest, active: true)
-
-    if !dest_piece
+    if capture_or_clear?(x_dest, y_dest)
       self.update_attributes(x_pos: x_dest, y_pos: y_dest)
       return true
-    elsif dest_piece.color != my_color
-      dest_piece.update_attributes(active: false)
-      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
-      true
-    else
-      return false
     end
+    return false
+  end
+
+  def capture_or_clear?(x_dest, y_dest)
+    dest_piece = piece_at_location(x_dest, y_dest)
+
+    if dest_piece
+      if dest_piece.color == self.color
+        return false
+      elsif dest_piece.color != self.color
+        dest_piece.deactivate!()
+      end
+    end
+    return true
+  end
+
+  def deactivate!
+    self.update_attributes(active: false)
+  end
+
+  private
+
+  def piece_at_location(x, y)
+    return self.class.find_by(
+      game_id: self.game_id,
+      x_pos: x,
+      y_pos: y,
+      active: true)
   end
 end

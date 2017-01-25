@@ -3,25 +3,19 @@ class King < Piece
   # The king can only move one square in any direction - up, down, to the sides, and diagonally.
   # ** Special case **
   # The king may never move himself into check (where he could be captured).
+
   def valid_move?(x_destination, y_destination)
-    allowed_movement?(x_destination, y_destination)
+    super
+    return false if move_too_far?(x_destination, y_destination)
+    true
   end
 
-  def initialize(args)
-    super
-    if args[:color] == 1
-      write_attribute(:piece_type, "white-king.jpg")
-    else
-      write_attribute(:piece_type, "black-king.jpg")
-    end
-  end
 
   private
   #king movement is only at 1 so when x_destination must be -1 from the location of the king(params)
-  def allowed_movement?(x_destination, y_destination)
-    x_movement_difference = (x_destination - x) #x needs to be changed to whatever we set the set params to
-    y_movement_difference = (y_destination - y)
-
-    (x_movement_difference <= 1) && (y_movement_difference <= 1)
+  def move_too_far?(x_destination, y_destination)
+    return true if (x_pos - x_destination).abs > 1
+    return true if (y_pos - y_destination).abs > 1
+    false
   end
 end

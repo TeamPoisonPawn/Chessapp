@@ -12,15 +12,27 @@ FactoryGirl.define do
   end
 
   factory :pawn do
+    x_pos 1
+    y_pos 1
+    game_id 1
+    active true
+    color "black"
+    has_moved false
   end
 
   factory :king do
+    x_pos 3
+    y_pos 0
   end
 
   factory :rook do
+    x_pos 0
+    y_pos 0
   end
 
   factory :bishop do
+    x_pos 2
+    y_pos 0
   end
 
   factory :knight do

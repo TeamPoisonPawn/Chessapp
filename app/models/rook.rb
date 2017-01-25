@@ -1,12 +1,15 @@
 class Rook < Piece
+
+  def valid_move?(x_destination, y_destination)
+    super && legal_move?(x_destination, y_destination)
+  end
+
+  def legal_move?(x_destination, y_destination)
+    if (x_pos - x_destination).abs == (y_pos - y_destination).abs
+      return false
+    end
+    true
+  end
   # The rook may move as far as it wants, but only forward, backward, and to the sides.
 
-  def initialize(args) #change initialize to: after_initialize do
-    super
-    if args[:color] == 1
-      write_attribute(:piece_type, "white-rook.jpg")
-    else
-      write_attribute(:piece_type, "black-rook.jpg")
-    end
-  end
 end
