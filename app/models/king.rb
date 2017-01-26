@@ -18,4 +18,20 @@ class King < Piece
     return true if (y_pos - y_destination).abs > 1
     false
   end
+
+  #This is where logic to check if the King has moved or not
+  #Must also check if Rook has moved as well.
+  #This accounts for Whiteside-Rook (0,0) & (0,7)
+  #Also accounts for Blackside-Rook (7,0) & (7,7)
+  def valid_castling?(x_destination, y_destination)
+    return false if x_pos == 4
+    #white_king, kingside castling
+
+    #white_king, queenside castling
+
+    #black_king, kingside castling
+
+    #black_king, queenside castling
+  end
+
 end
