@@ -1,9 +1,6 @@
 class Piece < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
-  scope :rooks, -> {
-    where
-  }
 
   def self.pieces
     %w(Pawn Rook Bishop Knight Queen King)
