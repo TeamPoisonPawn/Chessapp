@@ -34,16 +34,11 @@ $(document).ready(function () {
       $(dropped).parent().droppable("enable");
       $(dropped).detach().css({top: 0, left: 0}).appendTo(droppedOn);
       helper: 'clone'
-      var update_piece = {
-        id: piece.data('piece-id'),
-        x_pos: destination_square.data('x_dest'),
-        y_pos: destination_square.data('y_dest'),
-        }
     }
   });
 });   
 
-$('td').not('td:empty').droppable("disable");
+// $('td').not('td:empty').droppable("disable");
 </script>
 
 <%= render 'shared/gameboard', pieces: @game.pieces, selected_piece: nil %>

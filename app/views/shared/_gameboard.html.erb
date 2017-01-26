@@ -9,7 +9,7 @@
           <% 7.downto(0) do |row| %>
             <tr>
               <% 0.upto(7) do |col| %>
-                <td class="<%= white_or_black(row) %>"><a id= "piece">
+                <td class="<%= white_or_black(row) %>"><a>
                   <% if selected_piece %>
                     <%= link_to '', piece_path(id: selected_piece.id, x_pos: col, y_pos: row), :class => piece_link(selected_piece), method: :put %>
                   <% end %>
