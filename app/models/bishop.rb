@@ -6,9 +6,9 @@ class Bishop < Piece
   end
 
   def legal_move?(x_destination, y_destination)
-    if x_destination == x_pos || y_destination == y_pos
-      return false
+    if (x_destination - x_pos).abs == (y_destination - y_pos).abs
+      return true
     end
-    true
+    false
   end
 end
