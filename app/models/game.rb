@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
     pieces.where(color: "white").each do |p|
       p.update_attributes(player_id: white_player_id)
     end
-    piece.where(color: "black").each do |p|
+    pieces.where(color: "black").each do |p|
       p.update_attributes(player_id: black_player_id)
     end
   end

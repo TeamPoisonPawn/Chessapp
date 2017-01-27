@@ -22,8 +22,34 @@ RSpec.describe Game, type: :model do
     #
     # it "should have rooks on (0,0), (0,7)"
     #   game = FactoryGirl.create(:game)
+  end
 
+   describe "player's turn" do
+  
+    let(:game) { FactoryGirl.create(:game, white_player_id: white_player, black_player_id: black_player) }
+    let(:piece) { FactoryGirl.create(:piece, game_id: game.id, player_id: white_player.id) }
+    let(:pawn) { FactoryGirl.create(:pawn, game_id: game.id, player_id: black_player.id) }
 
+    it "should set the first turn of a player to white" do
+      game.set_default_turn!
+      expect(game.turn).to eq(white_player_id)
+    end
+
+    it "should set the current turn to the correct player" do
+      game.set_default_turn!
+      expect(game.current_player_turn).to eq('white')
+      piece.move_to(5,5)
+      game.reload
+      expect(game.current_player_turn).to eq('black')
+    end
+
+    it "should change turns after player moves" do
+      game.set_default_turn!
+      expect(game.turn).to eq(white_player.id)
+      piece.move_to(5,5)
+      game.reload
+      expect(game.turn).to eq(black_player.id)
+    end
   end
 end
 

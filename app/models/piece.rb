@@ -15,6 +15,11 @@ class Piece < ActiveRecord::Base
     x_location == x && y_location == y
   end
 
+  # determine if player_id of piece matches current turn
+  def moving_own_piece?
+    player_id == game.turn
+  end
+
   #Check to see if the move exceeds the board size.
   #This is set by min_size & max_size
   def move_is_on_board?(x_destination, y_destination)

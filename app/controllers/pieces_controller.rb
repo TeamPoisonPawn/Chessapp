@@ -1,7 +1,5 @@
 class PiecesController < ApplicationController
   before_action :find_piece, :only => [:show, :update]
-  def show
-  end
 
   def update
     @game = @piece.game
@@ -15,6 +13,10 @@ class PiecesController < ApplicationController
   end
 
   private
+
+  def your_turn?
+    @game.turn == current_player.id
+  end
 
   def render_not_found
     render text: 'Not Found', status: :not_found
