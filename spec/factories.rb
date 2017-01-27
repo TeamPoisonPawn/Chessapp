@@ -45,5 +45,9 @@ FactoryGirl.define do
   end
 
   factory :queen do
+    x_pos 1
+    y_pos 1
+    type 'Queen'
+    active true
   end
 end

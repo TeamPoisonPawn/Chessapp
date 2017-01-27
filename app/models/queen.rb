@@ -7,7 +7,7 @@ class Queen < Piece
 
   def legal_move?(x_destination, y_destination)
     #can move horizontal, vertical, and diagnol the length of the board, unless obstructed.
-    x_pos == x_destination || y_pos == y_destination || 
+    x_pos == x_destination || y_pos == y_destination ||
       (x_pos - x_destination).abs == (y_pos - y_destination).abs
   end
 end
