@@ -13,7 +13,11 @@ class Pawn < Piece
 
   def legal_move?(x_dest, y_dest)
     x_diff = (x_dest - self.x_pos).abs
-    y_diff = y_dest - self.y_pos
+    if color == "white"
+      y_diff = y_dest - self.y_pos
+    else
+      y_diff = (y_dest - self.y_pos).abs
+    end
 
     # Can't move backwards
     return false if y_diff < 1
