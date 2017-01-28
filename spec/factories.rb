@@ -1,4 +1,12 @@
 FactoryGirl.define do
+  factory :user do
+    sequence :email do |n|
+      "dummyemail#{n}@gmail.com"
+    end
+    password "password"
+    password_confirmation "password"
+  end
+
   factory :piece do
     x_pos 0
     y_pos 0
