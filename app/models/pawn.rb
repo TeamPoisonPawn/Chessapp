@@ -28,9 +28,11 @@ class Pawn < Piece
 
     # Can move 2 or 1 spaces forward on first move.
     if !self.has_moved
+      self.update_attributes(has_moved: true)
       return true if (y_diff == 2 || y_diff == 1) && x_diff == 0
     # Can move only 1 space forward after first move
     else
+      self.update_attributes(has_moved: true)
       return true if y_diff == 1 && x_diff == 0
     end
 
