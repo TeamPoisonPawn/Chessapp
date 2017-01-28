@@ -5,10 +5,10 @@ class Rook < Piece
   end
 
   def legal_move?(x_destination, y_destination)
-    if (x_pos - x_destination).abs == (y_pos - y_destination).abs
-      return false
+    if (x_pos == x_destination && y_pos != y_destination) || (y_pos == y_destination && x_pos != x_destination)
+      return true
     end
-    true
+    return false
   end
   # The rook may move as far as it wants, but only forward, backward, and to the sides.
 
