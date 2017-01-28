@@ -7,7 +7,8 @@ class Piece < ActiveRecord::Base
   end
 
   #The board size at maximum (x-axis, y-axis)
-
+  $min_size = 0
+  $max_size = 7
 
   def piece_type
     "#{self.color}-#{self.type.downcase}"
@@ -21,9 +22,7 @@ class Piece < ActiveRecord::Base
   #Check to see if the move exceeds the board size.
   #This is set by min_size & max_size
   def move_is_on_board?(x_destination, y_destination)
-    min_size = 0
-    max_size = 7
-    (x_destination <= max_size && x_destination >= min_size) && (y_destination <= max_size && y_destination >= min_size)
+    (x_destination <= $max_size && x_destination >= $min_size) && (y_destination <= $max_size && y_destination >= $min_size)
   end
 
   #If it passes all steps, move is valid

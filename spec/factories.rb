@@ -18,11 +18,17 @@ FactoryGirl.define do
     active true
     color "black"
     has_moved false
+    type 'Pawn'
   end
 
   factory :king do
     x_pos 3
     y_pos 0
+    game_id 1
+    active true
+    color "black"
+    has_moved false
+    type 'King'
   end
 
   factory :rook do
@@ -39,5 +45,9 @@ FactoryGirl.define do
   end
 
   factory :queen do
+    x_pos 1
+    y_pos 1
+    type 'Queen'
+    active true
   end
 end
