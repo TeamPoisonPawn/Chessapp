@@ -27,4 +27,16 @@ RSpec.describe King, type: :model do
       expect(king.will_move_into_check?(4,0)).to be true
     end
   end
+  describe 'can_move_out_of_check?' do
+    let(:king) {FactoryGirl.create(:king, x_pos: 7, y_pos: 7, game: game, color: 'white')}
+    it "should return true if the king can move to a square that does not put it in check" do
+      queen = FactoryGirl.create(:queen, x_pos: 6, y_pos: 4, type: 'Queen', color: 'black', game: king.game)
+      expect(king.can_move_out_of_check?).to be true
+    end
+    it "should return false if the king can only move into check" do
+      queen = FactoryGirl.create(:queen, x_pos: 6, y_pos: 5, type: 'Queen', color: 'black', game: king.game)
+      enemy_king = FactoryGirl.create(:king, x_pos: 5, y_pos: 6, color: 'black', game: king.game)
+      expect(king.can_move_out_of_check?).to be false
+    end
+  end
 end

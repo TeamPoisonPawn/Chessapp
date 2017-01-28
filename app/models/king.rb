@@ -26,4 +26,21 @@ class King < Piece
 
     return check
   end
+
+  def can_move_out_of_check?
+    start_x = x_pos
+    start_y = y_pos
+    can_move = false
+
+    ((x_pos - 1)..(x_pos + 1)).each do |x|
+      ((y_pos - 1)..(y_pos + 1)).each do |y|
+        if valid_move?(x, y)
+          update_attributes(x_pos: x, y_pos: y)
+          can_move = true unless game.check?(color)
+          update_attributes(x_pos: start_x, y_pos: start_y)
+        end
+      end
+    end
+    return can_move
+  end
 end
