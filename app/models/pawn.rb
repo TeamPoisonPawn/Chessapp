@@ -10,9 +10,9 @@ class Pawn < Piece
   def initialize(args)
     super
     if args[:color] == 1
-      write_attribute(:piece_type, "white-pawn.png")
+      write_attribute(:piece_type, "white-pawn.jpg")
     else
-      write_attribute(:piece_type, "black-pawn.png")
+      write_attribute(:piece_type, "black-pawn.jpg")
     end
   end
 
