@@ -4,9 +4,9 @@ class Queen < Piece
   def initialize(args)
     super
     if args[:color] == 1
-      write_attribute(:piece_type, "white-queen.jpg")
+      write_attribute(:piece_type, "white-queen.png")
     else
-      write_attribute(:piece_type, "black-queen.jpg")
+      write_attribute(:piece_type, "black-queen.png")
     end
   end
 end

@@ -17,7 +17,7 @@ class Piece < ActiveRecord::Base
 
   # determine if player_id of piece matches current turn
   def moving_own_piece?
-    player_id == game.turn
+    player_id == game.player_turn_id
   end
 
   #Check to see if the move exceeds the board size.

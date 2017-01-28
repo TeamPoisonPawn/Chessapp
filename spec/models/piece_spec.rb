@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
 
-  let(:game) { FactoryGirl.create(:game) }
-  let(:piece) { FactoryGirl.create(:piece, x_pos: 4, y_pos: 4, game_id: game.id) }
+  # let(:game) { FactoryGirl.create(:game) }
+  # let(:piece) { FactoryGirl.create(:piece, x_pos: 4, y_pos: 4, game_id: game.id) }
 
   # describe "is_obstructed? method" do
 
@@ -124,18 +124,17 @@ RSpec.describe Piece, type: :model do
   #   end
   # end
 
-  describe "Piece#game.change_turns" do
+  describe "Piece#game.switch_players" do
 
-    let(:piece) { FactoryGirl.create(:piece, game_id: game.id, player_id: white_player.id) }
+    let(:game) { FactoryGirl.create(:game) }
+    let(:piece) { FactoryGirl.create(:piece, game_id: game.id, player_id: white_player_id) }
 
     it "should change turns after a player moves piece" do
       game.set_default_turn
-      expect(game.turn).to eq(white_player.id)
+      expect(game.turn).to eq(white_player_id)
       piece.move_to(5,5)
       game.reload
-      expect(game.turn).to eq(black_player.id)
+      expect(game.turn).to eq(black_player_id)
     end
   end
-
-  
 end

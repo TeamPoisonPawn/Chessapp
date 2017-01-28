@@ -21,23 +21,18 @@ class Game < ActiveRecord::Base
   end
   #white player goes first
   def set_default_turn
-    update_attributes(turn: white_player_id)
+    update_attributes(player_turn_id: white_player_id)
+  end
+
+  def player_ids
+    [black_player_id, white_player_id]
   end
 
   #switched game turn to color
-  def switch_players(color)
+  def switch_players
     #ensure that game is set to correct turn
-    if color
-      update_attributes(turn: white_player_id)
-    else
-      update_attributes(turn: black_player_id)
-    end
-  end
-
-  #update turn and game state after successdul move
-  def update_state(current_player_color)
-    # give turn over to other player
-    switch_players(!current_player_color)
+    next_turn_id = player_ids - [player_turn_id]
+    update_attributes(player_turn_id: next_turn_id.first)
   end
 
   def populate_board!
