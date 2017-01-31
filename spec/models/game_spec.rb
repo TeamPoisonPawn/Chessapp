@@ -5,8 +5,9 @@ require 'rails_helper'
 #rspec spec/____(file name) // :15(if you want to run specific tests)
 
 RSpec.describe Game, type: :model do
-  let(:game){FactoryGirl.create(:game)}
+
   describe "#populate_board!" do
+    let(:game){FactoryGirl.create(:game)}
     it "should populate our game board with all chess pieces" do
       expect(game.pieces.count).to eq(32) #game.pieces is an association.
     end
@@ -24,31 +25,30 @@ RSpec.describe Game, type: :model do
     #   game = FactoryGirl.create(:game)
   end
 
-   describe "player's turn" do
-  
-    let(:game) { FactoryGirl.create(:game, white_player_id: white_player, black_player_id: black_player) }
+  describe "player's turn" do
+    let(:game) { FactoryGirl.create(:game, white_player_id: white_player.id, black_player_id: black_player.id) }
     let(:piece) { FactoryGirl.create(:piece, game_id: game.id, player_id: white_player.id) }
     let(:pawn) { FactoryGirl.create(:pawn, game_id: game.id, player_id: black_player.id) }
 
     it "should set the first turn of a player to white" do
-      game.set_default_turn
-      expect(game.turn).to eq(white_player_id)
+      game.set_default_turn!
+      expect(game.current_turn).to eq(white_player.id)
     end
 
     it "should set the current turn to the correct player" do
-      game.set_default_turn
-      expect(game.turn).to eq('white')
+      game.set_default_turn!
+      expect(game.current_player_turn).to eq('white')
       piece.move_to(5,5)
       game.reload
-      expect(game.turn).to eq('black')
+      expect(game.current_player_turn).to eq('black')
     end
 
     it "should change turns after player moves" do
-      game.set_default_turn
-      expect(game.turn).to eq(white_player.id)
+      game.set_default_turn!
+      expect(game.current_turn).to eq(white_player.id)
       piece.move_to(5,5)
       game.reload
-      expect(game.turn).to eq(black_player.id)
+      expect(game.current_turn).to eq(black_player.id)
     end
   end
 end

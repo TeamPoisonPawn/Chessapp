@@ -3,7 +3,7 @@ class Queen < Piece
   # or diagonally - as far as possible as long as she does not move through any of her own pieces.
   def initialize(args)
     super
-    if args[:color] == 1
+    if args[:color] == "white"
       write_attribute(:piece_type, "white-queen.jpg")
     else
       write_attribute(:piece_type, "black-queen.jpg")

@@ -7,7 +7,7 @@ class Game < ActiveRecord::Base
   scope :available, -> { where("(black_player_id IS NOT NULL AND white_player_id IS NULL)
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
   after_create :populate_board!
-  after_create :set_default_turn
+  before_create :set_default_turn!
   after_create :assign_pieces
 
   #assign pieces to players id so opponent can't move pieces that are not their own.
@@ -20,7 +20,7 @@ class Game < ActiveRecord::Base
     end
   end
   #white player goes first
-  def set_default_turn
+  def set_default_turn!
     update_attributes(player_turn_id: white_player_id)
   end
 

@@ -3,7 +3,7 @@ class Rook < Piece
 
   def initialize(args) #change initialize to: after_initialize do
     super
-    if args[:color] == 1
+    if args[:color] == "white"
       write_attribute(:piece_type, "white-rook.jpg")
     else
       write_attribute(:piece_type, "black-rook.jpg")
