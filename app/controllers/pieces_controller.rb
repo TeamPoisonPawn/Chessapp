@@ -1,12 +1,13 @@
 class PiecesController < ApplicationController
   before_action :find_piece, :only => [:show, :update]
+  
   def show
   end
 
   def update
     @game = @piece.game
     @pieces = @piece.game.pieces
-    if @piece.move_to!(params[:x_pos], params[:y_pos])
+    if @piece.move_to!(params[:x_pos], params[:y_pos]) && @piece.valid_move?(params[:x_pos], params[:y_pos])
       redirect_to game_path(@game.id)
     else
       flash.now[:alert] = "Piece cannot move there!"
