@@ -16,11 +16,13 @@ class Pawn < Piece
     if color == "white"
       y_diff = y_dest - self.y_pos
     else
+    backwards_check = y_dest - self.y_pos
       y_diff = (y_dest - self.y_pos).abs
     end
 
     # Can't move backwards
-    return false if y_diff < 1
+    return false if y_diff < 1 && self.color == "white"
+    return false if self.color == "black" && backwards_check > 0
     # Can't move more than 2 spaces forward and 1 space left or right
     return false if y_diff > 2 || x_diff > 1
 
