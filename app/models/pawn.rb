@@ -13,7 +13,11 @@ class Pawn < Piece
 
   def legal_move?(x_dest, y_dest)
     x_diff = (x_dest - self.x_pos).abs
-    y_diff = y_dest - self.y_pos
+    if color == "white"
+      y_diff = y_dest - self.y_pos
+    else
+      y_diff = (y_dest - self.y_pos).abs
+    end
 
     # Can't move backwards
     return false if y_diff < 1
@@ -24,9 +28,11 @@ class Pawn < Piece
 
     # Can move 2 or 1 spaces forward on first move.
     if !self.has_moved
+      self.update_attributes(has_moved: true)
       return true if (y_diff == 2 || y_diff == 1) && x_diff == 0
     # Can move only 1 space forward after first move
     else
+      self.update_attributes(has_moved: true)
       return true if y_diff == 1 && x_diff == 0
     end
 
