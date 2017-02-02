@@ -3,9 +3,9 @@ class GamesController < ApplicationController
   before_action :find_game, :only => [:show, :update]
 
   def show
-    if @game.check?("black")
-      flash.now[:alert] = "Check!"
-    end
+    # if @game.check?("white")
+    #   flash.now[:alert] = "Check!"
+    # end
   end
 
   def update

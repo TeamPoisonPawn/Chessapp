@@ -81,7 +81,7 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x_dest, y_dest)
-    if capture_or_clear?(x_dest, y_dest)
+    if capture_or_clear?(x_dest, y_dest) && !self.game.check?(self.color)
       self.update_attributes(x_pos: x_dest, y_pos: y_dest)
       return true
     end
