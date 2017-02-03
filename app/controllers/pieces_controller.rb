@@ -1,5 +1,5 @@
 class PiecesController < ApplicationController
-  before_action :find_piece, :only => [:show, :update]
+  before_action :find_piece, :only => [:show, :update, :ajax_update]
   def show
   end
 
@@ -12,6 +12,13 @@ class PiecesController < ApplicationController
       flash.now[:alert] = "Piece cannot move there!"
       render "show"
     end
+  end
+
+  def ajax_update
+    @game = @piece.game
+    @pieces = @piece.game.pieces
+    # @piece.move_to!(params[:x_pos], params[:y_pos])
+    render :json => "{ success: #{@piece.move_to!(params[:x_pos], params[:y_pos])} }"
   end
 
   private

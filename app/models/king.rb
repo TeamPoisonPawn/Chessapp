@@ -4,24 +4,26 @@ class King < Piece
   # ** Special case **
   # The king may never move himself into check (where he could be captured).
   def valid_move?(x_destination, y_destination)
-    allowed_movement?(x_destination, y_destination)
+    super && legal_move?(x_destination, y_destination) && !will_move_into_check?(x_destination, y_destination)
   end
 
-  def initialize(args)
-    super
-    if args[:color] == 1
-      write_attribute(:piece_type, "white-king.jpg")
-    else
-      write_attribute(:piece_type, "black-king.jpg")
-    end
-  end
-
-  private
   #king movement is only at 1 so when x_destination must be -1 from the location of the king(params)
-  def allowed_movement?(x_destination, y_destination)
-    x_movement_difference = (x_destination - x) #x needs to be changed to whatever we set the set params to
-    y_movement_difference = (y_destination - y)
+  def legal_move?(x_destination, y_destination)
+    x_movement_difference = (x_destination - self.x_pos).abs
+    y_movement_difference = (y_destination - self.y_pos).abs
 
-    (x_movement_difference <= 1) && (y_movement_difference <= 1)
+    x_movement_difference.between?(0, 1) && y_movement_difference.between?(0, 1)
+  end
+
+  def will_move_into_check?(x_dest, y_dest)
+    start_x = x_pos
+    start_y = y_pos
+    check = false
+
+    self.update_attributes(x_pos: x_dest, y_pos: y_dest)
+    check = game.check?(self.color)
+    self.update_attributes(x_pos: start_x, y_pos: start_y)
+
+    return check
   end
 end

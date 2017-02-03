@@ -4,13 +4,17 @@ class Knight < Piece
   # direction, and then one more move at a 90 degree angle, just like the shape of an “L”.
   # Knights are also the only pieces that can move over other pieces.
 
-  def initialize(args)
+
+  def valid_move?(x_destination, y_destination)
     super
-    if args[:color] == 1
-      write_attribute(:piece_type, "white-knight.jpg")
-    else
-      write_attribute(:piece_type, "black-knight.jpg")
+    if x_pos == x_destination || y_pos == y_destination
+      return false
     end
+    (x_pos - x_destination).abs + (y_pos - y_destination).abs == 3
+  end
+
+  def is_obstructed?(x_destination, y_destination)
+    return false
   end
 
 end
