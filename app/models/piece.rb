@@ -27,6 +27,7 @@ class Piece < ActiveRecord::Base
 
   #If it passes all steps, move is valid
   def valid_move?(x_destination, y_destination)
+    game = Game.find(self.game_id)
     !move_is_nil?(x_destination, y_destination) &&
     move_is_on_board?(x_destination, y_destination) &&
     !is_obstructed?(x_destination, y_destination)
@@ -81,11 +82,20 @@ class Piece < ActiveRecord::Base
   end
 
   def move_to!(x_dest, y_dest)
-    if capture_or_clear?(x_dest, y_dest) && !self.game.check?(self.color)
-      self.update_attributes(x_pos: x_dest, y_pos: y_dest)
-      return true
+    it_worked = false
+    ActiveRecord::Base.transaction do 
+      if capture_or_clear?(x_dest, y_dest)
+        self.update_attributes(x_pos: x_dest, y_pos: y_dest)
+        self.reload
+        if self.game.check?(self.color)
+          raise ActiveRecord::Rollback
+        end
+        it_worked = true
+      end
     end
-    return false
+    it_worked
+  rescue ActiveRecord::Rollback
+    false
   end
 
   def capture_or_clear?(x_dest, y_dest)
@@ -95,7 +105,7 @@ class Piece < ActiveRecord::Base
       if dest_piece.color == self.color
         return false
       elsif dest_piece.color != self.color
-        dest_piece.deactivate!()
+        dest_piece.deactivate!
       end
     end
     return true
@@ -108,7 +118,7 @@ class Piece < ActiveRecord::Base
   private
 
   def piece_at_location(x, y)
-    return self.class.find_by(
+    return self.game.pieces.find_by(
       game_id: self.game_id,
       x_pos: x,
       y_pos: y,
