@@ -27,25 +27,25 @@ class Pawn < Piece
     # Can't move more than 2 spaces forward and 1 space left or right
     return false if y_diff > 2 || x_diff > 1
 
-    if x_diff == y_diff
-      dest_piece = piece_at_location(x_dest, y_dest)
+    dest_piece = piece_at_location(x_dest, y_dest)
 
+    if x_diff == y_diff
       # Can move one space diagonally as long as a piece of the opposite color is on the destination spot
       if dest_piece
-        return false if x_diff != y_diff
         return false if dest_piece.color == self.color
         return true if (((y_diff == x_diff) && x_diff == 1) && dest_piece.color != self.color)
       end
-    end
-
-    # Can move 2 or 1 spaces forward on first move.
-    if !self.has_moved
-      self.update_attributes(has_moved: true)
-      return true if (y_diff == 2 || y_diff == 1) && x_diff == 0
-    # Can move only 1 space forward after first move
     else
-      self.update_attributes(has_moved: true)
-      return true if y_diff == 1 && x_diff == 0
+      # Can move 2 or 1 spaces forward on first move.
+      if !self.has_moved
+        self.update_attributes(has_moved: true)
+        return true if (y_diff == 2 || y_diff == 1) && x_diff == 0 && dest_piece == nil
+      # Can move only 1 space forward after first move
+      else
+        self.update_attributes(has_moved: true)
+        return true if y_diff == 1 && x_diff == 0 && dest_piece == nil
+      end
+      return false
     end
 
     # All other moves are invalid
