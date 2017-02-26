@@ -108,7 +108,7 @@ class Piece < ActiveRecord::Base
   private
 
   def piece_at_location(x, y)
-    return self.class.find_by(
+    return self.game.pieces.find_by(
       game_id: self.game_id,
       x_pos: x,
       y_pos: y,
