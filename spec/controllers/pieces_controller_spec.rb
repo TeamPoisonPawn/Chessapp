@@ -17,6 +17,7 @@ RSpec.describe PiecesController, type: :controller do
   describe "piece#update action" do
     it "should successfully update the position of the piece" do
       game = FactoryGirl.create(:game)
+      game.pieces.delete_all
       piece = FactoryGirl.create(:piece, game_id: game.id, x_pos: 0, y_pos: 0)
       put :update, id: piece.id, :x_pos => 0, :y_pos => 5
       piece.reload
