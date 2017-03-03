@@ -17,8 +17,7 @@ class PiecesController < ApplicationController
   def ajax_update
     @game = @piece.game
     @pieces = @piece.game.pieces
-    # @piece.move_to!(params[:x_pos], params[:y_pos])
-    render :json => "{ success: #{@piece.move_to!(params[:x_pos], params[:y_pos])} }"
+    render :json => "{ success: #{@piece.move_to!(params[:x_pos], params[:y_pos])},  }"
   end
 
   private
