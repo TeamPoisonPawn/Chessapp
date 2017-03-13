@@ -2,7 +2,23 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_game, :only => [:show, :update]
 
+  def new
+    @game = Game.new
+  end
+
+  def create
+    @game = Game.create(game_params)
+    if @game.valid?
+      redirect_to game_path(@game)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def show
+    if @game.white_player_id.nil? || @game.black_player_id.nil?
+      flash.now[:alert] = "Waiting for Opponent"
+    end
     if @game.check?("white")
       flash.now[:alert] = "White Check!"
     end
@@ -24,6 +40,10 @@ class GamesController < ApplicationController
 
   private
 
+  def game_params
+    params.require(:game).permit(:title, :white_player_id)
+  end
+
   def render_not_found
     render text: 'Not Found', status: :not_found
   end
@@ -35,4 +55,5 @@ class GamesController < ApplicationController
       return render_not_found
     end
   end
+
 end
