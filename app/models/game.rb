@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
                                   OR (white_player_id IS NOT NULL AND black_player_id IS NULL)") }
   after_create :populate_board!
   after_create :default_turn
+  after_update :assign_pieces
 
   #The board size at maximum (x-axis, y-axis)
   $min_size = 0
@@ -70,6 +71,15 @@ class Game < ActiveRecord::Base
 
   def default_turn
     update_attributes(player_turn_id: white_player_id)
+  end
+
+  def assign_pieces
+    pieces.where(color: "white").each do |p|
+      p.update_attributes(player_id: white_player_id)
+    end
+    pieces.where(color: "black").each do |p|
+      p.update_attributes(player_id: black_player_id)
+    end
   end
 
 end
