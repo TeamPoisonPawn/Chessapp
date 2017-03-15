@@ -23,7 +23,7 @@ class Pawn < Piece
     # Can't move backwards
     return false if color == "white" && y_diff < 1
     return false if color == "black" && backwards_check > 0
-
+    
     # Can't move more than 2 spaces forward and 1 space left or right
     return false if y_diff > 2 || x_diff > 1
 

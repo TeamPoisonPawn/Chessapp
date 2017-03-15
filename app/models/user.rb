@@ -12,4 +12,9 @@ class User < ActiveRecord::Base
     games_as_white + games_as_black
   end
 
+  def assign_color
+    colors = [games_as_black, games_as_white]
+    colors.sample
+  end
+
 end

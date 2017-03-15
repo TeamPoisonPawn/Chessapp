@@ -1,14 +1,19 @@
 class PiecesController < ApplicationController
   before_action :find_piece, :only => [:show, :update]
-
+  
   def show
   end
 
   def update
     @game = @piece.game
     @pieces = @piece.game.pieces
-    if @piece.valid_move?(params[:x_pos].to_i, params[:y_pos].to_i) && @piece.move_to!(params[:x_pos], params[:y_pos])
-      redirect_to game_path(@game.id)
+    if @piece.valid_move?(params[:x_pos].to_i, params[:y_pos].to_i) 
+      if @piece.move_to!(params[:x_pos].to_i, params[:y_pos].to_i)
+        redirect_to game_path(@game.id)
+      else
+        flash[:alert] = "cant move king into check"
+        redirect_to game_path(@game.id)
+      end
     else
       flash.now[:alert] = "Piece cannot move there!"
       render "show"
